@@ -265,20 +265,16 @@ oauthService = new OAuth.OAuth(
 )
 
 function vkAuth(req, res) {
-  Axios.post('https://oauth.vk.com/access_token', {
-    client_id: config.auth.vk.clientId,
-    client_secret: config.auth.vk.clientSecret,
-    code: req.body.code,
-    redirect_uri: req.body.redirectUri,
-    state: req.body.state,
-    grant_type: 'authorization_code'
-  }, {'Content-Type': 'application/json'}).then(function (response) {
-    var responseJson = parseQueryString(response.data)
-    if (responseJson.error) {
-      res.status(500).json({error: responseJson.error})
-    } else {
-      res.json(responseJson)
+  console.log(req);
+  Axios.get('https://oauth.vk.com/access_token', {
+    params: {
+      client_id: config.auth.vk.clientId,
+      client_secret: config.auth.vk.clientSecret,
+      code: req.body.code,
+      redirect_uri: req.body.redirectUri
     }
+  }).then(function (response) {
+    res.json(response.data);
   }).catch(function (err) {
     res.status(500).json(err)
   })

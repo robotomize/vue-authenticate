@@ -3,7 +3,7 @@ axios.defaults.baseURL = 'http://localhost:4000';
 Vue.use(VueRouter)
 Vue.use(VueAuthenticate, {
   tokenName: 'access_token',
-  baseUrl: 'http://localhost:4000',
+  baseUrl: 'http://localhost:1234',
   storageType: 'cookieStorage',
   providers: {
     // Define OAuth providers config, github for example
@@ -48,6 +48,7 @@ var router = new VueRouter({
             <button @click="auth('facebook')" class="button--facebook">Auth facebook</button>
             <button @click="auth('google')" class="button--google">Auth google</button>
             <button @click="auth('twitter')" class="button--twitter">Auth twitter</button>
+            <button @click="auth('vk')" class="button--vk">Auth vk</button>
 
             <hr />
             
@@ -110,6 +111,7 @@ var router = new VueRouter({
             this.response = null
 
             var this_ = this;
+            console.log(provider)
             this.$auth.authenticate(provider).then(function (authResponse) {
               if (provider === 'github') {
                 this_.$http.get('https://api.github.com/user').then(function (response) {
@@ -137,6 +139,7 @@ var router = new VueRouter({
                 this_.response = authResponse
               } else if (provider === 'live') {
                 this_.response = authResponse
+              } else if (provider === 'vk') {
               }
             }).catch(function (err) {
               this_.response = err
@@ -150,23 +153,13 @@ var router = new VueRouter({
       name: "callback",
       component: {
         data: function () {
-          return new Promise(function (resolve, reject) {
-            axios.post('/auth/github', {
-              code: this.$route.query.code, // code from oauth provider
-            }).then(function (response) {
-              console.log(response);
-              resolve(response);
-            }).catch(function (error) {
-              console.error(error);
-              reject(error)
-            });
-          });
+
         },
         template: '<div class="auth-component"></div>'
       }
     }
   ]
-})
+});
 
 var app = new Vue({
   router: router

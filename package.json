@@ -57,6 +57,10 @@
     "vue-router": "^2.3.0",
     "vuex": "^2.2.1",
     "webpack": "^2.3.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4",
+    "path": "^0.12.7",
     "webpack-dev-server": "^2.4.2"
   },
   "tags": [
@@ -77,9 +81,5 @@
     "oauth 2.0"
   ],
   "dependencies": {
-    "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0",
-    "koa-views": "^6.1.4",
-    "path": "^0.12.7"
   }
 }
